@@ -1,59 +1,55 @@
-# MyShop
+My Shop — Exercice Angular (NgRx + MSW + Material)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.9.
+Projet réalisé dans le cadre de l’exercice My Shop.
+Il fournit un front-end fonctionnel basé sur Angular 20, NgRx, Angular Material et MSW.
 
-## Development server
+✔ Fonctionnalités implémentées
 
-To start a local development server, run:
+Login fonctionnel (POST /api/auth/token/)
 
-```bash
-ng serve
-```
+Stockage du token dans NgRx
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Gestion du loading + erreurs
 
-## Code scaffolding
+Liste des produits (GET /api/products/)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Filtres : page, pageSize, minRating, ordering
 
-```bash
-ng generate component component-name
-```
+NgRx effects + selectors
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Angular Material pour les inputs / cards
 
-```bash
-ng generate --help
-```
+Affichage du nombre total (+ pagination côté API)
 
-## Building
+Page Product Rating (GET /api/products/:id/rating/)
 
-To build the project run:
+Routing complet
 
-```bash
-ng build
-```
+/login
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+/shop/products
 
-## Running unit tests
+/shop/rating
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+MSW activé pour mocker les API (déjà fourni)
 
-```bash
-ng test
-```
+✔ Architecture State (NgRx)
 
-## Running end-to-end tests
+auth/ : login, refresh, state tokens
 
-For end-to-end (e2e) testing, run:
+products/ : liste, meta, loading, errors
 
-```bash
-ng e2e
-```
+Effects pour login et fetch produits
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Selectors pour lire les données
 
-## Additional Resources
+❗ Storybook
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+À cause d’incompatibilités connues entre Angular 20 et Storybook 8,
+l’installation dans ce workspace est instable (conflit avec Angular build).
+
+Afin de préserver la stabilité du projet principal, Storybook n’a pas été intégré ici.
+
+🚀 Lancer l’application
+npm install
+npm start

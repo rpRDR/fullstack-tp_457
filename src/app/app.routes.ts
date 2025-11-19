@@ -6,12 +6,25 @@ import { DevProductsComponent } from './dev/dev-products.component';
 import { DevProductRatingComponent } from './dev/dev-product-rating.component';
 import { AppPlaceholderComponent } from './app-placeholder.component';
 
+// === PAGES DU SHOP (à créer) ===
+import { LoginPageComponent } from './pages/login/login-page.component';
+import { ProductsPageComponent } from './pages/products/products-page.component';
+import { ProductRatingPageComponent } from './pages/product-rating/product-rating-page.component';
+
 export const routes: Routes = [
+  // === PAGES EXISTANTES ===
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'dev', component: DevIndexComponent },
   { path: 'dev/auth', component: DevAuthComponent },
   { path: 'dev/products', component: DevProductsComponent },
   { path: 'dev/products/:id/rating', component: DevProductRatingComponent },
   { path: 'app', component: AppPlaceholderComponent },
+
+  // === NOUVELLES PAGES DU SHOP ===
+  { path: 'login', component: LoginPageComponent },
+  { path: 'shop/products', component: ProductsPageComponent },
+  { path: 'shop/rating', component: ProductRatingPageComponent },
+
+  // === WILDCARD ===
   { path: '**', redirectTo: '' },
 ];
