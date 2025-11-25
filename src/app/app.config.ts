@@ -20,6 +20,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 // === REDUCERS ===
 import { authReducer } from './state/auth/auth.reducer';
 import { productsReducer } from './state/products/products.reducer';
+import { cartReducer } from './state/cart/cart.reducer';
 
 // === EFFECTS ===
 import { AuthEffects } from './state/auth/auth.effects';
@@ -41,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       auth: authReducer,
       products: productsReducer,
+      cart: cartReducer,
     }),
     provideEffects([AuthEffects, ProductsEffects]),
 
@@ -49,5 +51,7 @@ export const appConfig: ApplicationConfig = {
       maxAge: 25,
       logOnly: !isDevMode(),
     }),
+
+    
   ],
 };

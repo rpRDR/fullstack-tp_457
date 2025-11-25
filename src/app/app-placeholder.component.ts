@@ -2,7 +2,9 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
+
 import { selectAccessToken } from './state/auth/auth.selectors';
+import { selectCartCount } from './state/cart/cart.selectors';
 
 @Component({
   standalone: true,
@@ -26,21 +28,44 @@ import { selectAccessToken } from './state/auth/auth.selectors';
         </p>
       </ng-template>
 
-      <nav class="flex gap-3 pt-2">
-        <button routerLink="/login" class="rounded border px-3 py-2 hover:bg-gray-50">Login</button>
-        <button routerLink="/shop/products" class="rounded border px-3 py-2 hover:bg-gray-50">Produits</button>
-        <button routerLink="/shop/rating" class="rounded border px-3 py-2 hover:bg-gray-50">Rating Produit</button>
-        <button routerLink="/dev" class="rounded border px-3 py-2 hover:bg-gray-50">→ Zone de test</button>
-        <button routerLink="/" class="rounded border px-3 py-2 hover:bg-gray-50">← Accueil</button>
+      <!-- NAVIGATION -->
+      <nav class="flex flex-wrap gap-3 pt-2">
+
+        <button routerLink="/login" class="rounded border px-3 py-2 hover:bg-gray-50">
+          Login
+        </button>
+
+        <button routerLink="/shop/products" class="rounded border px-3 py-2 hover:bg-gray-50">
+          Produits
+        </button>
+
+        <button routerLink="/shop/rating" class="rounded border px-3 py-2 hover:bg-gray-50">
+          Rating Produit
+        </button>
+
+        <!-- 🛒 BOUTON PANIER AVEC COMPTEUR -->
+        <button routerLink="/shop/cart" class="rounded border px-3 py-2 hover:bg-gray-50">
+          🛒 Panier (<span>{{ cartCount$ | async }}</span>)
+        </button>
+
+        <button routerLink="/dev" class="rounded border px-3 py-2 hover:bg-gray-50">
+          → Zone de test
+        </button>
+
+        <button routerLink="/" class="rounded border px-3 py-2 hover:bg-gray-50">
+          ← Accueil
+        </button>
+
       </nav>
     </section>
   `
 })
 export class AppPlaceholderComponent {
 
-  // ✔ INJECTION MODERNE = MARCHE TOUJOURS
   private store = inject(Store);
 
-  // ✔ SAFE CAR LE STORE EXISTE AU MOMENT DE L’INIT
   access$ = this.store.select(selectAccessToken);
+
+  // 🛒 Compteur du panier
+  cartCount$ = this.store.select(selectCartCount);
 }

@@ -8,7 +8,6 @@ const API = '/api';
 export const handlers = [
   // Auth: POST /api/auth/token/ -> { access, refresh }
   http.post(`${API}/auth/token/`, async () => {
-    // Ici on accepte tout payload pour valider l'intégration front.
     return HttpResponse.json(
       {
         access: 'mock-access-token',
@@ -23,7 +22,7 @@ export const handlers = [
     return HttpResponse.json({ access: 'mock-access-token-refreshed' }, { status: 200 });
   }),
 
-  // Products list: GET /api/products/?page=&page_size=&min_rating=&ordering=
+  // Products list: GET /api/products/
   http.get(`${API}/products/`, async ({ request }) => {
     const url = new URL(request.url);
     const page = Number(url.searchParams.get('page') || '1');
@@ -43,11 +42,32 @@ export const handlers = [
     return HttpResponse.json({ count, next: null, previous: null, results }, { status: 200 });
   }),
 
+  // Product details: GET /api/products/:id/
+  http.get(`${API}/products/:id/`, async ({ params }) => {
+    const id = Number(params['id']);
+    const product = products.find((p) => p.id === id);
+
+    if (!product) {
+      return HttpResponse.json({ detail: 'Not found.' }, { status: 404 });
+    }
+
+    // On renvoie le produit complet + la note moyenne
+    return HttpResponse.json(
+      {
+        ...product,
+        avg_rating: avgRating(product.ratings),
+      },
+      { status: 200 },
+    );
+  }),
+
   // Product rating: GET /api/products/:id/rating/
   http.get(`${API}/products/:id/rating/`, async ({ params }) => {
     const id = Number(params['id']);
     const p = products.find((x) => x.id === id);
+
     if (!p) return HttpResponse.json({ detail: 'Not found.' }, { status: 404 });
+
     return HttpResponse.json(
       { product_id: id, avg_rating: avgRating(p.ratings), count: p.ratings.length },
       { status: 200 },

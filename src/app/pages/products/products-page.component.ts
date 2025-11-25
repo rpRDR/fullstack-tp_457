@@ -74,15 +74,17 @@ import {
       </p>
 
       <!-- === LISTE PRODUITS === -->
-      <div class="grid" *ngIf="products$ | async as products">
+     <div class="grid" *ngIf="products$ | async as products">
         <app-product-card
           *ngFor="let p of products"
           [name]="p.name"
-          [created_at]="p.created_at"
           [price]="p.price"
-          [avgRating]="p.avg_rating || null">
+          [created_at]="p.created_at"
+          [avgRating]="p.avg_rating"
+          [routerLink]="['/shop/product', p.id]">
         </app-product-card>
       </div>
+
 
       <p class="count" *ngIf="count$ | async as total">
         Total : {{ total }} produits

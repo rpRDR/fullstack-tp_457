@@ -1,37 +1,35 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, RouterModule],
   template: `
-    <mat-card class="card">
-      <mat-card-header>
-        <mat-card-title>{{ name }}</mat-card-title>
-        <mat-card-subtitle>{{ created_at | date:'mediumDate' }}</mat-card-subtitle>
-      </mat-card-header>
+   <div class="card" [routerLink]="routerLink">
 
-      <img mat-card-image src="https://picsum.photos/400/200" alt="Product image" />
-
-      <mat-card-content>
-        <p class="price">{{ price | currency:'EUR' }}</p>
-        <p *ngIf="avgRating !== null" class="rating">
-          ⭐ {{ avgRating.toFixed(1) }} / 5
-        </p>
-      </mat-card-content>
-    </mat-card>
+      <h3>{{ name }}</h3>
+      <p>Prix : € {{ price }}</p>
+      <p>Créé le : {{ created_at }}</p>
+      <p *ngIf="avgRating">⭐ {{ avgRating }}</p>
+    </div>
   `,
   styles: [`
-    .card { width: 100%; max-width: 350px; margin: auto; }
-    .price { font-size: 1.1rem; font-weight: bold; margin-top: 10px; }
-    .rating { color: #ffaa00; font-weight: 600; }
+    .card {
+      padding: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   `]
 })
 export class ProductCardComponent {
   @Input() name!: string;
-  @Input() created_at!: string;
   @Input() price!: number;
-  @Input() avgRating: number | null = null;
+  @Input() created_at!: string;
+  @Input() avgRating!: number | null;
+
+  // 🔥 Fix typage
+  @Input() routerLink: string | any[] | null = null;
 }
