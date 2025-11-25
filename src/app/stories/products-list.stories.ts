@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
 import { ProductCardComponent } from '../components/product-card/product-card.component';
 import { CommonModule } from '@angular/common';
 

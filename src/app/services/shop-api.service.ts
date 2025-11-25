@@ -37,4 +37,9 @@ export class ShopApiService {
   getRating(id: number) {
     return this.http.get(`/api/products/${id}/rating/`);
   }
+
+  getProductById(id: number) {
+  return this.http.get(`/api/products/${id}/`);
+}
+
 }
